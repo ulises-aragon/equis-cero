@@ -10,10 +10,6 @@ function App() {
   const [winner, setWinner] = useState(WINNER.NONE);
   const [winnerCombo, setWinnerCombo] = useState(Array(3).fill(null));
 
-  useEffect(() => {
-    document.title = "×O";
-  }, [])
-
   const updateBoard = (index) => {
     if (board[index] || winner !== WINNER.NONE) return;
 
