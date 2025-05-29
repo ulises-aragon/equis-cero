@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import { Square } from './components/Square';
 import conffeti from 'canvas-confetti';
 import { TURNS, WINNER } from './constants';
 import { checkWinner } from './logic/game';
 
 function App() {
-  const [board, setBoard] = useState(Array(9).fill(null));
-  const [turn, setTurn] = useState(TURNS.X);
+  const [board, setBoard] = useState(() => {
+    const savedBoard = window.localStorage.getItem('board');
+    return savedBoard ? JSON.parse(savedBoard) : Array(9).fill(null);
+  });
+  const [turn, setTurn] = useState(() => {
+    const savedTurn = window.localStorage.getItem('turn');
+    return savedTurn ? savedTurn : TURNS.X;
+  });
   const [winner, setWinner] = useState(WINNER.NONE);
   const [winnerCombo, setWinnerCombo] = useState(Array(3).fill(null));
 
-  const updateBoard = (index) => {
-    if (board[index] || winner !== WINNER.NONE) return;
-
-    const newBoard = [...board];
-    newBoard[index] = turn;
-    setBoard(newBoard);
-
-    const [newWinner, combo] = checkWinner(newBoard);
+  const checkGameStatus = (board) => {
+    const [newWinner, combo] = checkWinner(board);
 
     if (newWinner !== WINNER.NONE) {
       setWinner(newWinner);
@@ -27,10 +27,24 @@ function App() {
         spread: 70,
         origin: { y: 0.6 }
       });
-    } else {
-      const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X;
-      setTurn(newTurn);
     }
+  }
+
+  const updateBoard = (index) => {
+    if (board[index] || winner !== WINNER.NONE) return;
+
+    const newBoard = [...board];
+    newBoard[index] = turn;
+    setBoard(newBoard);
+
+    const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X;
+    setTurn(newTurn);
+
+    // Save game state.
+    window.localStorage.setItem('board', JSON.stringify(newBoard));
+    window.localStorage.setItem('turn', turn);
+
+    checkGameStatus(newBoard);
   }
 
   const resetGame = () => {
@@ -39,6 +53,10 @@ function App() {
     setWinner(WINNER.NONE);
     setWinnerCombo(Array(3).fill(null));    
   }
+
+  useEffect(() => {
+    checkGameStatus(board);
+  }, [])
 
   return (
     <main className='board'>
