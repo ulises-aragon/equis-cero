@@ -1,6 +1,8 @@
 # EQUIS CERO - ×O
 
-Creacion de un simple juego de equis cero usando React y JavaScript
+Creacion de un simple juego de equis cero usando React y JavaScript.
+
+Juega aqui. (https://equis-cero.netlify.app/)
 
 Futuras implementaciones :
 
