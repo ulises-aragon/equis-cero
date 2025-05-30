@@ -1,12 +1,9 @@
-export const Square = ({ children, isSelected, updateBoard, index, winner }) => {
-  const className = `square ${(isSelected || winner) ? 'is-selected' : ''}`;
+import { GRADIENT_CLASSES } from '../constants'
 
-  const handleClick = () => {
-    updateBoard(index);
-  }
-
+export const Square = ({ children, winner, onClick }) => {
+  const className = `square ${GRADIENT_CLASSES[winner]}`;
   return (
-    <div onClick={handleClick} className={className}>
+    <div onClick={onClick} className={className}>
       {children}
     </div>
   );

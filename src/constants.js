@@ -20,3 +20,11 @@ export const WINNER_COMBOS = [
   [0, 4, 8],
   [2, 4, 6],
 ]
+
+export const GRADIENT_CLASSES = {    
+    [WINNER.NONE]: '',
+    SELECTED: 'is-selected',
+    [WINNER.DRAW]: 'draw',
+    [TURNS.X]: 'x-win',
+    [TURNS.O]: 'o-win',
+}
