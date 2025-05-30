@@ -1,11 +1,11 @@
-# EQUIS CERO
-## ×O
+# EQUIS CERO - ×O
 
-Creation of a simple game with React, used to learn how to setup basic projects.
+Creacion de un simple juego de equis cero usando React y JavaScript
 
-Next planned features:
+Futuras implementaciones :
 
-- Multiple boards in game.
-- Game state saving.
+- Multiple tablas en un mismo juego.
+- Equis cero multiple.
+- Guardado del estado de juego.
 
-@ Made by Ulises Aragon 29/5/2025
+@ Creado por Ulises Aragon el 29/5/2025
